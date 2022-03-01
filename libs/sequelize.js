@@ -10,7 +10,7 @@ const options = {
 
 if (config.isProd) {
   options.dialectOptions = {
-    ssh: {
+    ssl: {
       rejectUnauthorized: false,
     }
   }
