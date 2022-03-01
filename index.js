@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routes');
 
-const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
+const errorMidleware = require('./middlewares/error.handler');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,11 +31,11 @@ app.get('/nueva-ruta', (req, res) => {
 
 routerApi(app);
 
-app.use(logErrors);
-app.use(boomErrorHandler);
-app.use(errorHandler);
-
+app.use(errorMidleware.logErrors);
+app.use(errorMidleware.ormErrorHandler);
+app.use(errorMidleware.boomErrorHandler);
+app.use(errorMidleware.errorHandler);
 
 app.listen(port, () => {
-  console.log('Mi port' +  port);
+  console.log('My port: ' +  port);
 });
